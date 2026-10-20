@@ -1,0 +1,1 @@
+Transcription automatique à relire; les scores sont déclarés par le modèle et non calibrés.

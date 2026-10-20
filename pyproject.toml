@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bpmn-image-to-mermaid"
+version = "0.2.0"
+description = "Images BPMN avec couloirs vers Mermaid, via un modèle vision local"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+ui = ["streamlit>=1.40,<2"]
+
+[project.scripts]
+bpmn-mermaid = "bpmn_mermaid.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["bpmn_mermaid*"]
+
+[tool.setuptools.package-data]
+bpmn_mermaid = ["assets/*"]

@@ -1,0 +1,82 @@
+{
+  "pools": [
+    {
+      "id": "p",
+      "label": "Demandes"
+    }
+  ],
+  "lanes": [
+    {
+      "id": "a",
+      "pool": "p",
+      "label": "Demandeur"
+    },
+    {
+      "id": "b",
+      "pool": "p",
+      "label": "Gestionnaire"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "s",
+      "lane": "a",
+      "kind": "start",
+      "label": "Début"
+    },
+    {
+      "id": "t",
+      "lane": "a",
+      "kind": "task",
+      "label": "Déposer"
+    },
+    {
+      "id": "g",
+      "lane": "b",
+      "kind": "exclusive",
+      "label": "Complet ?"
+    },
+    {
+      "id": "c",
+      "lane": "a",
+      "kind": "task",
+      "label": "Compléter"
+    },
+    {
+      "id": "e",
+      "lane": "b",
+      "kind": "end",
+      "label": "Fin"
+    }
+  ],
+  "edges": [
+    {
+      "source": "s",
+      "target": "t",
+      "kind": "sequence"
+    },
+    {
+      "source": "t",
+      "target": "g",
+      "kind": "sequence"
+    },
+    {
+      "source": "g",
+      "target": "c",
+      "kind": "sequence",
+      "label": "Non"
+    },
+    {
+      "source": "c",
+      "target": "g",
+      "kind": "sequence"
+    },
+    {
+      "source": "g",
+      "target": "e",
+      "kind": "sequence",
+      "label": "Oui"
+    }
+  ],
+  "warnings": []
+}
