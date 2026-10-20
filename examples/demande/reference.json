@@ -1,0 +1,99 @@
+{
+  "pools": [
+    {
+      "id": "pool",
+      "label": "Traitement d’une demande"
+    }
+  ],
+  "lanes": [
+    {
+      "id": "demandeur",
+      "label": "Demandeur",
+      "pool": "pool"
+    },
+    {
+      "id": "gestion",
+      "label": "Gestionnaire",
+      "pool": "pool"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "debut",
+      "lane": "demandeur",
+      "kind": "start",
+      "label": "Début"
+    },
+    {
+      "id": "deposer",
+      "lane": "demandeur",
+      "kind": "task",
+      "label": "Déposer la demande"
+    },
+    {
+      "id": "complet",
+      "lane": "gestion",
+      "kind": "exclusive",
+      "label": "Dossier complet ?"
+    },
+    {
+      "id": "completer",
+      "lane": "demandeur",
+      "kind": "task",
+      "label": "Compléter le dossier"
+    },
+    {
+      "id": "valider",
+      "lane": "gestion",
+      "kind": "task",
+      "label": "Valider la demande"
+    },
+    {
+      "id": "fin",
+      "lane": "gestion",
+      "kind": "end",
+      "label": "Fin"
+    }
+  ],
+  "edges": [
+    {
+      "source": "debut",
+      "target": "deposer",
+      "kind": "sequence",
+      "label": ""
+    },
+    {
+      "source": "deposer",
+      "target": "complet",
+      "kind": "sequence",
+      "label": ""
+    },
+    {
+      "source": "complet",
+      "target": "completer",
+      "kind": "sequence",
+      "label": "Non"
+    },
+    {
+      "source": "completer",
+      "target": "complet",
+      "kind": "sequence",
+      "label": ""
+    },
+    {
+      "source": "complet",
+      "target": "valider",
+      "kind": "sequence",
+      "label": "Oui"
+    },
+    {
+      "source": "valider",
+      "target": "fin",
+      "kind": "sequence",
+      "label": ""
+    }
+  ],
+  "warnings": [
+    "Exemple pédagogique : transcription de référence préparée manuellement, pas une sortie de modèle vision."
+  ]
+}

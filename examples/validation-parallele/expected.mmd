@@ -1,0 +1,24 @@
+flowchart LR
+  subgraph v0["Validation technique et financière"]
+    subgraph v1["Coordination"]
+      v4(("Début"))
+      v5["Recevoir le dossier"]
+      v6{"+"}
+      v9{"+"}
+      v10(("Fin"))
+      style v10 stroke-width:4px
+    end
+    subgraph v2["Équipe technique"]
+      v7["Étudier la faisabilité"]
+    end
+    subgraph v3["Service financier"]
+      v8["Vérifier le budget"]
+    end
+  end
+  v4 --> v5
+  v5 --> v6
+  v6 --> v7
+  v6 --> v8
+  v7 --> v9
+  v8 --> v9
+  v9 --> v10

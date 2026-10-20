@@ -2,6 +2,21 @@
 
 Transcription assistée d’images BPMN avec **lignes d’eau (couloirs / swimlanes)** en diagrammes Mermaid modifiables. Reconnaissance par un modèle vision exécuté via Ollama, validation d’un JSON intermédiaire et génération déterministe.
 
+## Exemples illustrés
+
+Voir le [guide des exemples avec les commandes exactes](examples/README.md) :
+
+- **[Demande avec décision et boucle](examples/README.md#1-demande--décision-et-boucle-de-complément)** : deux couloirs et retour de dossier incomplet.
+- **[Validation parallèle](examples/README.md#2-validation--deux-branches-parallèles-et-synchronisation)** : trois couloirs et synchronisation de deux traitements.
+
+Chaque cas comprend une image PNG, un JSON de référence et le résultat Mermaid (`.mmd` et rendu `.svg`). Les références ont été préparées manuellement ; les commandes permettent d’évaluer la reconnaissance avec votre modèle.
+
+```bash
+# Test complet de l’export, sans clé API ni modèle local :
+bpmn-mermaid examples/demande/reference.json --from-json --html -o output/demo
+# Puis ouvrir output/demo/diagram.html dans le navigateur.
+```
+
 ## Démarrage rapide
 
 ```bash
