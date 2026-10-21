@@ -59,3 +59,31 @@ class HtmlTests(unittest.TestCase):
         self.assertNotIn('</script><script>window.pwned',page)
         self.assertIn('\\u003c/script',page)
         self.assertEqual(page.count('id="payload"'),1)
+
+class MultiImageTests(unittest.TestCase):
+    def test_three_images_ordered_for_both_providers(self):
+        from bpmn_mermaid.vision import request_json
+        import base64
+        from unittest.mock import MagicMock
+        images = [PNG + suffix for suffix in (b'source', b'current', b'candidate')]
+        for provider in ('ollama', 'openai'):
+            response = {'message': {'content': '{"ok":true}'}} if provider == 'ollama' else {'choices': [{'finish_reason': 'stop', 'message': {'content': '{"ok":true}'}}]}
+            stream = MagicMock()
+            stream.read.return_value = json.dumps(response).encode()
+            stream.__enter__.return_value = stream
+            if provider == 'ollama':
+                target = 'bpmn_mermaid.vision.urlopen'
+            else:
+                target = 'bpmn_mermaid.vision.build_opener'
+            with patch(target) as mocked:
+                if provider == 'ollama': mocked.return_value = stream
+                else: mocked.return_value.open.return_value = stream
+                result = request_json(images, 'Compare JSON', provider=provider, api_key='test', model='test')
+                self.assertEqual(result, {'ok': True})
+                req = mocked.call_args.args[0] if provider == 'ollama' else mocked.return_value.open.call_args.args[0]
+                payload = json.loads(req.data)
+                if provider == 'ollama':
+                    actual = [base64.b64decode(s) for s in payload['messages'][0]['images']]
+                else:
+                    actual = [base64.b64decode(item['image_url']['url'].split(',')[1]) for item in payload['messages'][0]['content'][1:]]
+                self.assertEqual(actual, images)

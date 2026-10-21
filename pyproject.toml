@@ -4,13 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "bpmn-image-to-mermaid"
-version = "0.2.0"
-description = "Images BPMN avec couloirs vers Mermaid, via un modèle vision local"
+version = "0.3.0"
+description = "Images BPMN vers Mermaid avec comparaison visuelle itérative"
 requires-python = ">=3.11"
 dependencies = []
 
 [project.optional-dependencies]
 ui = ["streamlit>=1.40,<2"]
+visual = ["playwright>=1.51,<2"]
 
 [project.scripts]
 bpmn-mermaid = "bpmn_mermaid.cli:main"

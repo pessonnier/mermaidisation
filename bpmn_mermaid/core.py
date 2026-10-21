@@ -26,21 +26,21 @@ def validate(model):
     lane_ids = {x["id"] for x in lanes}
     node_ids = {x["id"] for x in nodes}
     for lane in lanes:
-        if lane.get("pool") not in pool_ids:
+        if not isinstance(lane.get("pool"), str) or lane["pool"] not in pool_ids:
             raise ValueError(f"Pool inconnu pour {lane['id']}")
     for node in nodes:
-        if node.get("lane") is not None and node["lane"] not in lane_ids:
+        if node.get("lane") is not None and (not isinstance(node["lane"], str) or node["lane"] not in lane_ids):
             raise ValueError(f"Couloir inconnu pour {node['id']}")
-        if node.get("kind") not in KINDS:
+        if not isinstance(node.get("kind"), str) or node["kind"] not in KINDS:
             raise ValueError(f"Type inconnu pour {node['id']}")
     for item in nodes + edges:
         score = item.get("confidence", 1.0)
         if isinstance(score, bool) or not isinstance(score, (int, float)) or not math.isfinite(score) or not 0 <= score <= 1:
             raise ValueError("confidence doit être comprise entre 0 et 1")
     for edge in edges:
-        if edge.get("source") not in node_ids or edge.get("target") not in node_ids:
+        if any(not isinstance(edge.get(key), str) or edge[key] not in node_ids for key in ("source", "target")):
             raise ValueError("Une flèche référence un élément inconnu")
-        if edge.get("kind") not in {"sequence", "message", "association"}:
+        if not isinstance(edge.get("kind"), str) or edge["kind"] not in {"sequence", "message", "association"}:
             raise ValueError("Type de flèche inconnu")
         if not isinstance(edge.get("label", ""), str):
             raise ValueError("Libellé de flèche invalide")

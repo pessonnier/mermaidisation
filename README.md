@@ -2,6 +2,18 @@
 
 Transcription assistée d’images BPMN avec **lignes d’eau (couloirs / swimlanes)** en diagrammes Mermaid modifiables. Reconnaissance par un modèle vision exécuté via Ollama, validation d’un JSON intermédiaire et génération déterministe.
 
+## Correction par comparaisons visuelles successives
+
+Le mode `--refine` rend réellement le Mermaid, compare son image au BPMN source, génère une correction puis confronte **source / version courante / candidate** avant de la conserver. Les erreurs, régressions et propositions cycliques sont rejetées. Les tours et décisions sont conservés.
+
+```bash
+pip install -e '.[ui,visual]'
+python -m playwright install chromium
+bpmn-mermaid examples/demande/source.png --provider ollama --model qwen3-vl:8b --refine --rounds 3 -o output/demande-affinee
+```
+
+Ouvrir `output/demande-affinee/diagram.html` et consulter `refinement.json`. [Guide pratique du mode visuel](docs/visual-refinement.md) : commandes OpenAI, reprise d’un JSON, critères de comparaison, historique et plafonds d’appels. Dans l’interface, activer « Comparer et corriger les rendus ».
+
 ## Exemples illustrés
 
 Voir le [guide des exemples avec les commandes exactes](examples/README.md) :
@@ -129,6 +141,8 @@ Les échanges Ollama et OpenAI sont testés avec un serveur HTTP simulé. Aucun 
 
 - `bpmn_mermaid/vision.py`: adaptateurs Ollama / OpenAI et prompt.
 - `bpmn_mermaid/html_export.py`: génération HTML autonome.
+- `bpmn_mermaid/refinement.py`: comparaisons visuelles et sélection des corrections.
+- `bpmn_mermaid/renderer.py`, `render_worker.py`: captures locales avec Chromium.
 - `bpmn_mermaid/assets/`: moteur Mermaid et gabarit embarqués.
 - `bpmn_mermaid/core.py`: validation, avertissements et export Mermaid.
 - `bpmn_mermaid/cli.py`: interface de commande.

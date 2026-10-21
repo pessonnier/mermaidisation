@@ -40,12 +40,23 @@ DEFAULTS = {
 }
 
 
-def extract(data, model=None, endpoint=None, timeout=300, provider="ollama", api_key=None):
+def image_mime(data):
     if not data or len(data) > 20 * 1024 * 1024:
         raise ValueError("Image vide ou supérieure à 20 Mio")
-    if not (data.startswith(b'\x89PNG\r\n\x1a\n') or data.startswith(b'\xff\xd8\xff') or
-            (data.startswith(b'RIFF') and data[8:12] == b'WEBP')):
-        raise ValueError("Formats acceptés: PNG, JPEG, WebP")
+    if data.startswith(b'\x89PNG\r\n\x1a\n'):
+        return "image/png"
+    if data.startswith(b'\xff\xd8\xff'):
+        return "image/jpeg"
+    if data.startswith(b'RIFF') and data[8:12] == b'WEBP':
+        return "image/webp"
+    raise ValueError("Formats acceptés: PNG, JPEG, WebP")
+
+
+def request_json(images, prompt, model=None, endpoint=None, timeout=300, provider="ollama", api_key=None):
+    """Envoyer une ou plusieurs images dans un ordre explicite et obtenir du JSON."""
+    if not images:
+        raise ValueError("Au moins une image est requise")
+    mimes = [image_mime(data) for data in images]
     if provider not in DEFAULTS:
         raise ValueError("Fournisseur attendu: ollama ou openai")
     default_model, default_endpoint = DEFAULTS[provider]
@@ -54,12 +65,12 @@ def extract(data, model=None, endpoint=None, timeout=300, provider="ollama", api
     parsed = urlsplit(endpoint)
     if parsed.scheme not in {"http", "https"} or not parsed.hostname or parsed.username or parsed.password or parsed.query or parsed.fragment:
         raise ValueError("URL du serveur invalide")
-    encoded = base64.b64encode(data).decode("ascii")
+    encoded = [base64.b64encode(data).decode("ascii") for data in images]
     headers = {"Content-Type": "application/json"}
     if provider == "ollama":
         path = "/api/chat"
         payload = {"model": model, "stream": False, "format": "json", "options": {"temperature": 0},
-                   "messages": [{"role": "user", "content": PROMPT, "images": [encoded]}]}
+                   "messages": [{"role": "user", "content": prompt, "images": encoded}]}
     else:
         key = api_key or os.getenv("OPENAI_API_KEY")
         if not key:
@@ -68,11 +79,11 @@ def extract(data, model=None, endpoint=None, timeout=300, provider="ollama", api
             raise ValueError("HTTPS requis pour transmettre une clé à un serveur distant")
         headers["Authorization"] = "Bearer " + key
         path = "/chat/completions"
-        mime = "image/png" if data.startswith(b"\x89PNG") else "image/jpeg" if data.startswith(b"\xff\xd8") else "image/webp"
         payload = {"model": model, "store": False, "response_format": {"type": "json_object"},
                    "messages": [{"role": "user", "content": [
-                       {"type": "text", "text": PROMPT},
-                       {"type": "image_url", "image_url": {"url": f"data:{mime};base64,{encoded}", "detail": "high"}}
+                       {"type": "text", "text": prompt},
+                       *[{"type": "image_url", "image_url": {"url": f"data:{mime};base64,{value}", "detail": "high"}}
+                         for mime, value in zip(mimes, encoded)]
                    ]}]}
     req = Request(endpoint.rstrip("/") + path, data=json.dumps(payload).encode(), headers=headers)
     try:
@@ -86,14 +97,21 @@ def extract(data, model=None, endpoint=None, timeout=300, provider="ollama", api
             if choice.get("finish_reason") != "stop":
                 raise ValueError("Réponse OpenAI incomplète ou refusée; vérifier le modèle et les limites")
             content = choice["message"]["content"]
-        return validate(json.loads(content))
+        parsed_content = json.loads(content)
+        if not isinstance(parsed_content, dict):
+            raise ValueError("Objet JSON attendu du modèle")
+        return parsed_content
     except HTTPError as exc:
         # Ne pas afficher le corps HTTP: il peut contenir des données sensibles.
         raise ValueError(f"{provider}: erreur HTTP {exc.code}; vérifier clé, modèle et URL") from exc
-    except (URLError, TimeoutError) as exc:
+    except (URLError, TimeoutError, OSError) as exc:
         raise ValueError(f"{provider}: serveur inaccessible ou délai dépassé") from exc
     except (KeyError, IndexError, TypeError, json.JSONDecodeError) as exc:
         raise ValueError(f"Réponse {provider} non conforme au modèle JSON attendu") from exc
+
+
+def extract(data, model=None, **kwargs):
+    return validate(request_json([data], PROMPT, model=model, **kwargs))
 
 
 def extract_file(path, **kwargs):

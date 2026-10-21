@@ -113,3 +113,14 @@ python -m examples.build_examples
 ```
 
 Sous Linux, le script utilise la police DejaVu Sans de `/usr/share/fonts/truetype/dejavu/`. Sur un autre système, adapter les chemins de police dans `build_examples.py`. Les SVG de résultat sont des rendus du code Mermaid, pas des images sources de reconnaissance.
+
+## Affiner automatiquement par comparaison des rendus
+
+Après `pip install -e '.[visual]'` et `python -m playwright install chromium` :
+
+```bash
+bpmn-mermaid examples/demande/source.png --provider ollama --model qwen3-vl:8b --refine --rounds 3 -o output/demande-affinee
+bpmn-mermaid examples/validation-parallele/source.png --provider openai --model gpt-4.1 --refine --rounds 3 -o output/parallele-affinee
+```
+
+La seconde commande nécessite `OPENAI_API_KEY`. Les PNG, SVG, HTML et décisions par tour sont enregistrés. Comparer le résultat retenu aux références de ce guide. Voir [le mode visuel en détail](../docs/visual-refinement.md).
