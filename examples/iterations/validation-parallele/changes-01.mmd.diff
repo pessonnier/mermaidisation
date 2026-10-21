@@ -1,0 +1,16 @@
+--- initial/diagram.mmd
+
++++ candidate-01/diagram.mmd
+
+@@ -3,8 +3,8 @@
+
+     subgraph v1["Coordination"]
+       v4(("Début"))
+       v5["Recevoir le dossier"]
+-      v6{"X"}
+-      v9{"X"}
++      v6{"+"}
++      v9{"+"}
+       v10(("Fin"))
+       style v10 stroke-width:4px
+     end

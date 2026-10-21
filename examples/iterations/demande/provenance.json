@@ -1,0 +1,51 @@
+{
+  "mode": "scripted_fixture_no_vision_model",
+  "initial_errors": "injected_manually",
+  "rendering": "real_bundled_mermaid_in_offline_chromium",
+  "rounds": 4,
+  "comparisons": [
+    {
+      "comparison": 1,
+      "image_count": 2,
+      "origin": "scripted_fixture_no_vision_model"
+    },
+    {
+      "comparison": 2,
+      "image_count": 3,
+      "origin": "scripted_fixture_no_vision_model"
+    },
+    {
+      "comparison": 3,
+      "image_count": 2,
+      "origin": "scripted_fixture_no_vision_model"
+    },
+    {
+      "comparison": 4,
+      "image_count": 3,
+      "origin": "scripted_fixture_no_vision_model"
+    },
+    {
+      "comparison": 5,
+      "image_count": 2,
+      "origin": "scripted_fixture_no_vision_model"
+    },
+    {
+      "comparison": 6,
+      "image_count": 2,
+      "origin": "scripted_fixture_no_vision_model"
+    }
+  ],
+  "corrections": [
+    {
+      "category": "lane",
+      "description": "Compléter le dossier est dans le mauvais couloir",
+      "evidence": "L’image source place cette tâche dans le couloir Demandeur"
+    },
+    {
+      "category": "edge",
+      "description": "La boucle de complément est absente",
+      "evidence": "Dans la source une flèche relie Compléter le dossier à Dossier complet ?"
+    }
+  ],
+  "disclaimer": "Ne mesure pas les performances de reconnaissance ou d’autocorrection d’un LLM."
+}

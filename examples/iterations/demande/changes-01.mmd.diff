@@ -1,0 +1,17 @@
+--- initial/diagram.mmd
+
++++ candidate-01/diagram.mmd
+
+@@ -3,10 +3,10 @@
+
+     subgraph v1["Demandeur"]
+       v3(("Début"))
+       v4["Déposer la demande"]
++      v6["Compléter le dossier"]
+     end
+     subgraph v2["Gestionnaire"]
+       v5{"X: Dossier complet ?"}
+-      v6["Compléter le dossier"]
+       v7["Valider la demande"]
+       v8(("Fin"))
+       style v8 stroke-width:4px

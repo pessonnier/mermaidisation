@@ -1,0 +1,18 @@
+--- current
+
++++ candidate
+
+@@ -75,6 +75,12 @@
+
+       "label": "Non"
+     },
+     {
++      "source": "completer",
++      "target": "complet",
++      "kind": "sequence",
++      "label": ""
++    },
++    {
+       "source": "complet",
+       "target": "valider",
+       "kind": "sequence",

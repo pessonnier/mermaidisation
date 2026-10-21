@@ -1,0 +1,315 @@
+{
+  "source_sha256": "359c00f0239d529641d6a2293a7177304103a20429d573fee7ce4293380a8d2e",
+  "provider": "ollama",
+  "model": "SCRIPTED-DEMO-NO-LLM",
+  "rounds_limit": 4,
+  "comparisons": 6,
+  "comparisons_attempted": 6,
+  "selected": "candidate-02",
+  "history": [
+    {
+      "round": 1,
+      "outcome": "accepted",
+      "assessment": {
+        "status": "needs_changes",
+        "issues": [
+          {
+            "category": "gateway",
+            "description": "Les passerelles sont des alternatives au lieu de traitements parallèles",
+            "evidence": "La source montre un + dans les deux losanges, et non un X"
+          },
+          {
+            "category": "edge",
+            "description": "La branche budgétaire ne rejoint pas la synchronisation",
+            "evidence": "Une flèche de la source part de Vérifier le budget et entre dans la passerelle de jonction"
+          }
+        ],
+        "direction": "LR",
+        "proposed_model": {
+          "pools": [
+            {
+              "id": "pool",
+              "label": "Validation technique et financière"
+            }
+          ],
+          "lanes": [
+            {
+              "id": "coord",
+              "label": "Coordination",
+              "pool": "pool"
+            },
+            {
+              "id": "tech",
+              "label": "Équipe technique",
+              "pool": "pool"
+            },
+            {
+              "id": "finance",
+              "label": "Service financier",
+              "pool": "pool"
+            }
+          ],
+          "nodes": [
+            {
+              "id": "debut",
+              "lane": "coord",
+              "kind": "start",
+              "label": "Début"
+            },
+            {
+              "id": "recevoir",
+              "lane": "coord",
+              "kind": "task",
+              "label": "Recevoir le dossier"
+            },
+            {
+              "id": "split",
+              "lane": "coord",
+              "kind": "parallel",
+              "label": ""
+            },
+            {
+              "id": "technique",
+              "lane": "tech",
+              "kind": "task",
+              "label": "Étudier la faisabilité"
+            },
+            {
+              "id": "budget",
+              "lane": "finance",
+              "kind": "task",
+              "label": "Vérifier le budget"
+            },
+            {
+              "id": "join",
+              "lane": "coord",
+              "kind": "parallel",
+              "label": ""
+            },
+            {
+              "id": "fin",
+              "lane": "coord",
+              "kind": "end",
+              "label": "Fin"
+            }
+          ],
+          "edges": [
+            {
+              "source": "debut",
+              "target": "recevoir",
+              "kind": "sequence",
+              "label": ""
+            },
+            {
+              "source": "recevoir",
+              "target": "split",
+              "kind": "sequence",
+              "label": ""
+            },
+            {
+              "source": "split",
+              "target": "technique",
+              "kind": "sequence",
+              "label": ""
+            },
+            {
+              "source": "split",
+              "target": "budget",
+              "kind": "sequence",
+              "label": ""
+            },
+            {
+              "source": "technique",
+              "target": "join",
+              "kind": "sequence",
+              "label": ""
+            },
+            {
+              "source": "join",
+              "target": "fin",
+              "kind": "sequence",
+              "label": ""
+            }
+          ],
+          "warnings": [
+            "Exemple pédagogique : transcription de référence préparée manuellement, pas une sortie de modèle vision."
+          ]
+        }
+      },
+      "judgment": {
+        "verdict": "candidate",
+        "semantic_regression": false,
+        "rationale": "Décision scriptée : La source montre un + dans les deux losanges, et non un X",
+        "issues": [
+          {
+            "category": "edge",
+            "description": "La branche budgétaire ne rejoint pas la synchronisation",
+            "evidence": "Une flèche de la source part de Vérifier le budget et entre dans la passerelle de jonction"
+          }
+        ]
+      }
+    },
+    {
+      "round": 2,
+      "outcome": "accepted",
+      "assessment": {
+        "status": "needs_changes",
+        "issues": [
+          {
+            "category": "edge",
+            "description": "La branche budgétaire ne rejoint pas la synchronisation",
+            "evidence": "Une flèche de la source part de Vérifier le budget et entre dans la passerelle de jonction"
+          }
+        ],
+        "direction": "LR",
+        "proposed_model": {
+          "pools": [
+            {
+              "id": "pool",
+              "label": "Validation technique et financière"
+            }
+          ],
+          "lanes": [
+            {
+              "id": "coord",
+              "label": "Coordination",
+              "pool": "pool"
+            },
+            {
+              "id": "tech",
+              "label": "Équipe technique",
+              "pool": "pool"
+            },
+            {
+              "id": "finance",
+              "label": "Service financier",
+              "pool": "pool"
+            }
+          ],
+          "nodes": [
+            {
+              "id": "debut",
+              "lane": "coord",
+              "kind": "start",
+              "label": "Début"
+            },
+            {
+              "id": "recevoir",
+              "lane": "coord",
+              "kind": "task",
+              "label": "Recevoir le dossier"
+            },
+            {
+              "id": "split",
+              "lane": "coord",
+              "kind": "parallel",
+              "label": ""
+            },
+            {
+              "id": "technique",
+              "lane": "tech",
+              "kind": "task",
+              "label": "Étudier la faisabilité"
+            },
+            {
+              "id": "budget",
+              "lane": "finance",
+              "kind": "task",
+              "label": "Vérifier le budget"
+            },
+            {
+              "id": "join",
+              "lane": "coord",
+              "kind": "parallel",
+              "label": ""
+            },
+            {
+              "id": "fin",
+              "lane": "coord",
+              "kind": "end",
+              "label": "Fin"
+            }
+          ],
+          "edges": [
+            {
+              "source": "debut",
+              "target": "recevoir",
+              "kind": "sequence",
+              "label": ""
+            },
+            {
+              "source": "recevoir",
+              "target": "split",
+              "kind": "sequence",
+              "label": ""
+            },
+            {
+              "source": "split",
+              "target": "technique",
+              "kind": "sequence",
+              "label": ""
+            },
+            {
+              "source": "split",
+              "target": "budget",
+              "kind": "sequence",
+              "label": ""
+            },
+            {
+              "source": "technique",
+              "target": "join",
+              "kind": "sequence",
+              "label": ""
+            },
+            {
+              "source": "budget",
+              "target": "join",
+              "kind": "sequence",
+              "label": ""
+            },
+            {
+              "source": "join",
+              "target": "fin",
+              "kind": "sequence",
+              "label": ""
+            }
+          ],
+          "warnings": [
+            "Exemple pédagogique : transcription de référence préparée manuellement, pas une sortie de modèle vision."
+          ]
+        }
+      },
+      "judgment": {
+        "verdict": "candidate",
+        "semantic_regression": false,
+        "rationale": "Décision scriptée : Une flèche de la source part de Vérifier le budget et entre dans la passerelle de jonction",
+        "issues": []
+      }
+    },
+    {
+      "round": 3,
+      "outcome": "unchanged_equivalent",
+      "assessment": {
+        "status": "equivalent",
+        "issues": [],
+        "direction": "LR",
+        "proposed_model": null
+      }
+    },
+    {
+      "round": 4,
+      "outcome": "unchanged_equivalent",
+      "assessment": {
+        "status": "equivalent",
+        "issues": [],
+        "direction": "LR",
+        "proposed_model": null
+      }
+    }
+  ],
+  "status": "visually_consistent",
+  "note": "Verdicts du modèle non calibrés; relecture humaine nécessaire.",
+  "direction": "LR",
+  "execution_mode": "scripted_fixture_no_vision_model",
+  "status_scope": "Convergence du scénario scripté uniquement, pas validation par un LLM réel"
+}

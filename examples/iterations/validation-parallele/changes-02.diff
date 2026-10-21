@@ -1,0 +1,18 @@
+--- current
+
++++ candidate
+
+@@ -98,6 +98,12 @@
+
+       "label": ""
+     },
+     {
++      "source": "budget",
++      "target": "join",
++      "kind": "sequence",
++      "label": ""
++    },
++    {
+       "source": "join",
+       "target": "fin",
+       "kind": "sequence",

@@ -1,0 +1,19 @@
+flowchart LR
+  subgraph v0["Traitement d#8217;une demande"]
+    subgraph v1["Demandeur"]
+      v3(("Début"))
+      v4["Déposer la demande"]
+    end
+    subgraph v2["Gestionnaire"]
+      v5{"X: Dossier complet ?"}
+      v6["Compléter le dossier"]
+      v7["Valider la demande"]
+      v8(("Fin"))
+      style v8 stroke-width:4px
+    end
+  end
+  v3 --> v4
+  v4 --> v5
+  v5 -->|"Non"| v6
+  v5 -->|"Oui"| v7
+  v7 --> v8

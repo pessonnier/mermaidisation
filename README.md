@@ -16,6 +16,9 @@ Ouvrir `output/demande-affinee/diagram.html` et consulter `refinement.json`. [Gu
 
 ## Exemples illustrés
 
+[Voir les résultats avant/après sur plusieurs itérations](examples/iterations/README.md) : couloir corrigé, boucle restaurée, passerelles parallèles et branche de synchronisation. Les comparaisons de ces démonstrations sont scriptées et les rendus sont réellement générés par Mermaid/Chromium.
+
+
 Voir le [guide des exemples avec les commandes exactes](examples/README.md) :
 
 - **[Demande avec décision et boucle](examples/README.md#1-demande--décision-et-boucle-de-complément)** : deux couloirs et retour de dossier incomplet.

@@ -1,0 +1,12 @@
+--- candidate-01/diagram.mmd
+
++++ candidate-02/diagram.mmd
+
+@@ -15,5 +15,6 @@
+
+   v3 --> v4
+   v4 --> v5
+   v5 -->|"Non"| v6
++  v6 --> v5
+   v5 -->|"Oui"| v7
+   v7 --> v8

@@ -38,7 +38,7 @@ def main():
             width, height = size["width"], size["height"]
             if not all(math.isfinite(n) and 0 < n <= 12000 for n in (width, height)) or width * height > 24000000:
                 raise ValueError("Diagramme trop grand pour une comparaison lisible (24 mégapixels maximum)")
-            page.add_style_tag(content="""body{margin:0;background:white}header,.toolbar,.editor,details,p,#status{display:none}
+            page.add_style_tag(content="""body{margin:0;background:white}header,.toolbar,.editor,details,main>p,#status{display:none}
                 main{padding:0;max-width:none;margin:0}.grid{display:block}.panel{padding:0;border:0}
                 #diagram{overflow:visible;min-height:0}#diagram svg{max-width:none!important}""")
             page.locator("#diagram svg").evaluate("""(svg,size)=>{
@@ -46,6 +46,13 @@ def main():
                 svg.style.width=size.width+'px';svg.style.height=size.height+'px';
             }""", size)
             page.set_viewport_size({"width": max(320, width + 10), "height": max(240, height + 10)})
+            labels_visible = page.locator("#diagram svg p").evaluate_all("""labels => labels.every(el => {
+                if(!el.textContent.trim()) return true;
+                const box=el.getBoundingClientRect();
+                return box.width>0 && box.height>0;
+            })""")
+            if not labels_visible:
+                raise ValueError("Le rendu masque des libellés Mermaid; capture refusée")
             svg = page.locator("#diagram").inner_html()
             (folder / "diagram.svg").write_text(svg, encoding="utf-8")
             page.locator("#diagram svg").screenshot(path=str(folder / "diagram.png"), animations="disabled")

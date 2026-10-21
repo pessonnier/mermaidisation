@@ -1,0 +1,14 @@
+--- current
+
++++ candidate
+
+@@ -38,7 +38,7 @@
+
+     },
+     {
+       "id": "completer",
+-      "lane": "gestion",
++      "lane": "demandeur",
+       "kind": "task",
+       "label": "Compléter le dossier"
+     },

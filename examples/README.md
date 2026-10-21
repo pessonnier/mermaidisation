@@ -2,6 +2,9 @@
 
 Ces deux images BPMN synthétiques sont accompagnées d’un **JSON de référence préparé manuellement** et du Mermaid généré à partir de ce JSON. Les sorties sont des résultats attendus, pas des sorties obtenues par un modèle vision réel. Les commandes Ollama et OpenAI ci-dessous permettent de tester la reconnaissance et de la comparer à ces références.
 
+
+**Nouveau : [résultats illustrés sur plusieurs itérations](iterations/README.md).** Deux corrections successives sont montrées pour chaque exemple, avec les captures, les différences Mermaid/JSON et les décisions de chaque tour. Il s’agit de scénarios scriptés exécutés avec de vrais rendus Chromium, pas de résultats revendiqués d’un modèle vision.
+
 Exécuter les commandes depuis la racine du dépôt après `pip install -e '.[ui]'`.
 
 ## 1. Demande : décision et boucle de complément

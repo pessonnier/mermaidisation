@@ -1,0 +1,24 @@
+--- current
+
++++ candidate
+
+@@ -38,7 +38,7 @@
+
+     {
+       "id": "split",
+       "lane": "coord",
+-      "kind": "exclusive",
++      "kind": "parallel",
+       "label": ""
+     },
+     {
+@@ -56,7 +56,7 @@
+
+     {
+       "id": "join",
+       "lane": "coord",
+-      "kind": "exclusive",
++      "kind": "parallel",
+       "label": ""
+     },
+     {

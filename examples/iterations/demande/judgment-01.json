@@ -1,0 +1,12 @@
+{
+  "verdict": "candidate",
+  "semantic_regression": false,
+  "rationale": "Décision scriptée : L’image source place cette tâche dans le couloir Demandeur",
+  "issues": [
+    {
+      "category": "edge",
+      "description": "La boucle de complément est absente",
+      "evidence": "Dans la source une flèche relie Compléter le dossier à Dossier complet ?"
+    }
+  ]
+}

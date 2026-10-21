@@ -1,0 +1,126 @@
+{
+  "status": "needs_changes",
+  "issues": [
+    {
+      "category": "gateway",
+      "description": "Les passerelles sont des alternatives au lieu de traitements parallèles",
+      "evidence": "La source montre un + dans les deux losanges, et non un X"
+    },
+    {
+      "category": "edge",
+      "description": "La branche budgétaire ne rejoint pas la synchronisation",
+      "evidence": "Une flèche de la source part de Vérifier le budget et entre dans la passerelle de jonction"
+    }
+  ],
+  "direction": "LR",
+  "proposed_model": {
+    "pools": [
+      {
+        "id": "pool",
+        "label": "Validation technique et financière"
+      }
+    ],
+    "lanes": [
+      {
+        "id": "coord",
+        "label": "Coordination",
+        "pool": "pool"
+      },
+      {
+        "id": "tech",
+        "label": "Équipe technique",
+        "pool": "pool"
+      },
+      {
+        "id": "finance",
+        "label": "Service financier",
+        "pool": "pool"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "debut",
+        "lane": "coord",
+        "kind": "start",
+        "label": "Début"
+      },
+      {
+        "id": "recevoir",
+        "lane": "coord",
+        "kind": "task",
+        "label": "Recevoir le dossier"
+      },
+      {
+        "id": "split",
+        "lane": "coord",
+        "kind": "parallel",
+        "label": ""
+      },
+      {
+        "id": "technique",
+        "lane": "tech",
+        "kind": "task",
+        "label": "Étudier la faisabilité"
+      },
+      {
+        "id": "budget",
+        "lane": "finance",
+        "kind": "task",
+        "label": "Vérifier le budget"
+      },
+      {
+        "id": "join",
+        "lane": "coord",
+        "kind": "parallel",
+        "label": ""
+      },
+      {
+        "id": "fin",
+        "lane": "coord",
+        "kind": "end",
+        "label": "Fin"
+      }
+    ],
+    "edges": [
+      {
+        "source": "debut",
+        "target": "recevoir",
+        "kind": "sequence",
+        "label": ""
+      },
+      {
+        "source": "recevoir",
+        "target": "split",
+        "kind": "sequence",
+        "label": ""
+      },
+      {
+        "source": "split",
+        "target": "technique",
+        "kind": "sequence",
+        "label": ""
+      },
+      {
+        "source": "split",
+        "target": "budget",
+        "kind": "sequence",
+        "label": ""
+      },
+      {
+        "source": "technique",
+        "target": "join",
+        "kind": "sequence",
+        "label": ""
+      },
+      {
+        "source": "join",
+        "target": "fin",
+        "kind": "sequence",
+        "label": ""
+      }
+    ],
+    "warnings": [
+      "Exemple pédagogique : transcription de référence préparée manuellement, pas une sortie de modèle vision."
+    ]
+  }
+}

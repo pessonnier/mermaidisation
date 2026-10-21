@@ -1,0 +1,11 @@
+--- candidate-01/diagram.mmd
+
++++ candidate-02/diagram.mmd
+
+@@ -20,4 +20,5 @@
+
+   v6 --> v7
+   v6 --> v8
+   v7 --> v9
++  v8 --> v9
+   v9 --> v10

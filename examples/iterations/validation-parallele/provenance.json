@@ -1,0 +1,51 @@
+{
+  "mode": "scripted_fixture_no_vision_model",
+  "initial_errors": "injected_manually",
+  "rendering": "real_bundled_mermaid_in_offline_chromium",
+  "rounds": 4,
+  "comparisons": [
+    {
+      "comparison": 1,
+      "image_count": 2,
+      "origin": "scripted_fixture_no_vision_model"
+    },
+    {
+      "comparison": 2,
+      "image_count": 3,
+      "origin": "scripted_fixture_no_vision_model"
+    },
+    {
+      "comparison": 3,
+      "image_count": 2,
+      "origin": "scripted_fixture_no_vision_model"
+    },
+    {
+      "comparison": 4,
+      "image_count": 3,
+      "origin": "scripted_fixture_no_vision_model"
+    },
+    {
+      "comparison": 5,
+      "image_count": 2,
+      "origin": "scripted_fixture_no_vision_model"
+    },
+    {
+      "comparison": 6,
+      "image_count": 2,
+      "origin": "scripted_fixture_no_vision_model"
+    }
+  ],
+  "corrections": [
+    {
+      "category": "gateway",
+      "description": "Les passerelles sont des alternatives au lieu de traitements parallèles",
+      "evidence": "La source montre un + dans les deux losanges, et non un X"
+    },
+    {
+      "category": "edge",
+      "description": "La branche budgétaire ne rejoint pas la synchronisation",
+      "evidence": "Une flèche de la source part de Vérifier le budget et entre dans la passerelle de jonction"
+    }
+  ],
+  "disclaimer": "Ne mesure pas les performances de reconnaissance ou d’autocorrection d’un LLM."
+}

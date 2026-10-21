@@ -1,0 +1,12 @@
+{
+  "verdict": "candidate",
+  "semantic_regression": false,
+  "rationale": "Décision scriptée : La source montre un + dans les deux losanges, et non un X",
+  "issues": [
+    {
+      "category": "edge",
+      "description": "La branche budgétaire ne rejoint pas la synchronisation",
+      "evidence": "Une flèche de la source part de Vérifier le budget et entre dans la passerelle de jonction"
+    }
+  ]
+}
